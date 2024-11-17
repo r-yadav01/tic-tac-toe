@@ -1,4 +1,4 @@
-// prints different type of error messages based on the errorCode and hint
+// prints different type of error messages based on the errorCode and hint given as arguments
 function printError(errorCode, hint) {
     switch (errorCode) {
         case 1:
@@ -12,6 +12,8 @@ function printError(errorCode, hint) {
     }
 }
 
+// function module which returns functions to print the game board, check for any winner,
+// putting the 'X' and 'O' into the board boxes, and to check for any player symbol at any location on board
 function GameBoard() {
 
     let gameBoard = Array.from({ length: 9 }, (_, index) => index+1);
@@ -57,7 +59,9 @@ function GameBoard() {
     return {printBoard, checkWinner, playTurn, checkAtIndex};
 }
 
-(function GameController() {
+
+// anything related to the game flow is done here
+function GameController() {
 
     const [player1, player2] = newPlayers(); 
     let activePlayer = player1;  // activePlayer refers an object
@@ -143,4 +147,9 @@ function GameBoard() {
         (winner === 'X') ? (winner = player1) : ((winner === 'O') ? (winner = player2) : (printError(143)));
         console.log(`${winner.name} with symbol ${winner.symbol} wins !`);
     }
-})()
+}
+
+
+function DomController() {
+
+}

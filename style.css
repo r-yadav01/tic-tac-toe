@@ -35,3 +35,59 @@
   }
   
 /* css below this line */
+
+@font-face {
+  font-family: "Cartoonist Hand";
+  src: url(./fonts/SF_Cartoonist_Hand-webfont.woff) format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Cartoonist Hand";
+  src: url(./fonts/SF_Cartoonist_Hand_Bold-webfont.woff) format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Cartoonist Hand";
+  src: url(./fonts/SF_Cartoonist_Hand_Bold_Italic-webfont.woff) format('woff');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Cartoonist Hand";
+  src: url(./fonts/SF_Cartoonist_Hand_Italic-webfont.woff) format('woff');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Cartoonist Hand SC";
+  src: url(./fonts/SF_Cartoonist_Hand_SC-webfont.woff) format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Cartoonist Hand SC";
+  src: url(./fonts/SF_Cartoonist_Hand_SC_Bold-webfont.woff) format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Cartoonist Hand SC";
+  src: url(./fonts/SF_Cartoonist_Hand_SC_Bold_Italic-webfont.woff) format('woff');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Cartoonist Hand SC";
+  src: url(./fonts/SF_Cartoonist_Hand_SC_Italic-webfont.woff) format('woff');
+  font-weight: 400;
+  font-style: italic;
+}
