@@ -61,7 +61,7 @@ function GameBoard() {
 
 
 // anything related to the game flow is done here
-function GameController() {
+(function GameController() {
 
     const [player1, player2] = newPlayers(); 
     let activePlayer = player1;  // activePlayer refers an object
@@ -84,7 +84,7 @@ function GameController() {
     if (rounds === 9) console.log('TIE !!')
     
 
-    // return an array of 2 player objects, each object contains a name and a symbol
+    //// return an array of 2 player objects, each object contains a name and a symbol
     function newPlayers() {
 
         let name1 = prompt("Player 1's name: ");
@@ -147,9 +147,6 @@ function GameController() {
         (winner === 'X') ? (winner = player1) : ((winner === 'O') ? (winner = player2) : (printError(143)));
         console.log(`${winner.name} with symbol ${winner.symbol} wins !`);
     }
-}
 
-
-function DomController() {
-
-}
+    // return {switchActivePlayer, };
+})()

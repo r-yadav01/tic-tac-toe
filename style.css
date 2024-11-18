@@ -43,7 +43,7 @@
   font-style: normal;
 }
 
-@font-face {
+@font-face {  /* used by default in body */
   font-family: "Cartoonist Hand";
   src: url(./fonts/SF_Cartoonist_Hand_Bold-webfont.woff) format('woff');
   font-weight: 700;
@@ -57,7 +57,7 @@
   font-style: italic;
 }
 
-@font-face {
+@font-face { /* used in current player status */
   font-family: "Cartoonist Hand";
   src: url(./fonts/SF_Cartoonist_Hand_Italic-webfont.woff) format('woff');
   font-weight: 400;
@@ -71,7 +71,7 @@
   font-style: normal;
 }
 
-@font-face {
+@font-face {  /* used in the start button */
   font-family: "Cartoonist Hand SC";
   src: url(./fonts/SF_Cartoonist_Hand_SC_Bold-webfont.woff) format('woff');
   font-weight: 700;
@@ -90,4 +90,53 @@
   src: url(./fonts/SF_Cartoonist_Hand_SC_Italic-webfont.woff) format('woff');
   font-weight: 400;
   font-style: italic;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Cartoonist Hand";
+  font-weight: 700;
+  font-style: normal;
+  padding: 1rem;
+}
+
+h1 {
+  font-size: 5rem;
+}
+
+.current_player {
+  font-size: 2rem;
+  font-weight: 400;
+  font-style: italic;
+  text-align: center;
+  margin: 0.5rem;
+}
+
+.boxes {
+  display: grid;
+  grid-template-columns: repeat(3, 10rem);
+  grid-template-rows: repeat(3, 10rem);
+  margin: 0.5rem;
+}
+
+.boxes button {
+  height: 100%;
+  width: 100%;
+  font-family: "Cartoonist Hand SC";
+  font-size: 8rem;
+  font-weight: 700;
+  font-style: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button.start {
+  height: 4rem;
+  width: 10rem;
+  font-size: 2rem;
 }
