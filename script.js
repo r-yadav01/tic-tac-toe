@@ -61,7 +61,7 @@ function GameBoard() {
 
 
 // anything related to the game flow is done here
-(function GameController() {
+function GameController() {
 
     const [player1, player2] = newPlayers(); 
     let activePlayer = player1;  // activePlayer refers an object
@@ -149,4 +149,11 @@ function GameBoard() {
     }
 
     // return {switchActivePlayer, };
-})()
+}
+
+// GameController();
+
+(function DOMController() {
+    const start_btn = document.querySelector('.start');
+    start_btn.addEventListener('click', GameController);
+})();
