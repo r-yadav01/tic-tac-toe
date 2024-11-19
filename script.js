@@ -1,14 +1,23 @@
 // prints different type of error messages based on the errorCode and hint given as arguments
-function printError(errorCode, hint) {
-    switch (errorCode) {
-        case 1:
-            console.log(`${hint} an invalid index, please try again`);
+function statusPrinter(code, hint="Unknown") {
+    let game_status = document.querySelector('.game_status');
+
+    switch (code) {
+        case 1:  // if anyone player wins
+            game_status.textContent = `${hint.name} with symbol '${hint.symbol}' wins !`
             break;
         case 2:
-            console.log(`${hint + 1} is not empty, choose different index`);
+            game_status.textContent = `clicked box is not empty, choose another`;
+            break;
+        case 3:
+            game_status.textContent = `${hint.name}, with symbol '${hint.symbol}' , it's your turn`;
+            break;
+        case 4:  // for any tie
+            game_status.textContent = hint;
             break;
         default:
-            console.log(`An unknown error happened at ${errorCode} js line number`);
+            console.log(`An unknown error happened, code: ${code} and hint: ${hint}`);
+            break;
     }
 }
 
@@ -16,17 +25,9 @@ function printError(errorCode, hint) {
 // putting the 'X' and 'O' into the board boxes, and to check for any player symbol at any location on board
 function GameBoard() {
 
-    let gameBoard = Array.from({ length: 9 }, (_, index) => index+1);
+    let gameBoard = Array.from({ length: 9 }, () => '');
 
-    // print the current gameBoard array
-    const printBoard = () => {
-        for (let x = 0; x <= 6; x += 3) {
-            console.log(`${gameBoard[x]} | ${gameBoard[x+1]} | ${gameBoard[x+2]}`);
-        }
-        console.log('');
-    }
-
-    // checks for any winner, then returns the winner (if any) otherwise returns null
+    // checks for any winner, then returns the winner's symbol, or tie (if any) otherwise returns null
     const checkWinner = () => {
         for (let x = 0; x <= 6; x = x+3) {
             if (gameBoard[x] === gameBoard[x+1] && gameBoard[x+1] === gameBoard[x+2]) {
@@ -42,7 +43,12 @@ function GameBoard() {
 
         if (gameBoard[0] === gameBoard[4] && gameBoard[4] === gameBoard[8]) return gameBoard[0];
         else if (gameBoard[2] === gameBoard[4] && gameBoard[4] === gameBoard[6]) return gameBoard[2];
-        else return null;
+        else {
+            for (let x = 0; x <= 8; x++) {
+                if (gameBoard[x] !== 'X' && gameBoard[x] !== 'O') return null;
+            }
+            return "IT'S A TIE !!";
+        }
     }
 
     // only function which can edit the gameBoard array
@@ -56,104 +62,96 @@ function GameBoard() {
         return gameBoard[indexx];
     }
 
-    return {printBoard, checkWinner, playTurn, checkAtIndex};
+    return {checkWinner, playTurn, checkAtIndex};
 }
 
 
-// anything related to the game flow is done here
-function GameController() {
+(function DOMController() {
 
-    const [player1, player2] = newPlayers(); 
-    let activePlayer = player1;  // activePlayer refers an object
+    let player1, player2;
+    const board = GameBoard();
+    let activePlayer;
+    const boxes = document.querySelectorAll('.boxes button');
+    
+    const start_btn = document.querySelector('.start');
+    start_btn.addEventListener('click', startGame);    // start button click event
 
-    let board = GameBoard();
-    board.printBoard();
+    function startGame() {
+        start_btn.removeEventListener('click', startGame);
+        start_btn.textContent = 'RESTART';
+        start_btn.addEventListener('click', restartGame);
 
-    // runs the 9 complete rounds then declared tie!!
-    let rounds = 0;
-    for (; rounds < 9; rounds++) {
+        [player1, player2] = newPlayers();  // prompt for the players name
+        activePlayer = player1;
 
-        semiRound();
-        let winner = board.checkWinner();
-        if (winner !== null) {
-            announceWinner(winner);
-            break;
+        boxes.forEach((box) => {  // adding click eventlisteners to all the boxes
+            box.addEventListener('click', boxClickEvent)
+        })
+    }
+
+    function restartGame() {
+        location.reload();
+    }
+
+    function boxClickEvent(e) {
+        let dataBox = e.target.dataset.box;
+
+        // check if the clicked box is empty
+        if (board.checkAtIndex(dataBox) === 'X' || board.checkAtIndex(dataBox) === 'O') {
+            statusPrinter(2, dataBox);
+        }
+        else {
+            e.target.textContent = activePlayer.symbol;
+            board.playTurn(dataBox, activePlayer.symbol);  // only one to alter the internal array
+            const result = board.checkWinner();  // check for win condition after every move
+
+            if (result === 'X' || result === 'O') {
+                announceWinner(result);
+                endGame();
+                return;
+            }
+            else if (result === "IT'S A TIE !!") {  // if tie
+                statusPrinter(4, result);
+                endGame();
+                return;
+            }
+            switchActivePlayer();
         }
     }
-    
-    if (rounds === 9) console.log('TIE !!')
-    
 
-    //// return an array of 2 player objects, each object contains a name and a symbol
+    function endGame() {  // removes click event listeners from all boxes
+        boxes.forEach(box => {
+            box.removeEventListener('click', boxClickEvent);
+        })
+    }
+
     function newPlayers() {
+        let name1, name2;
 
-        let name1 = prompt("Player 1's name: ");
-        console.log(`${name1} your symbol is: X`);
-    
-        let name2 = prompt("Player 2's name: ");
-        console.log(`${name2} your symbol is: O`);
+        while (!name1) {
+            name1 = prompt("Player 1's name: ");
+        }
+        
+        while (!name2) {
+            name2 = prompt("Player 2's name: ");
+        }
     
         const player1 = { name: name1, symbol: 'X', };
         const player2 = { name: name2, symbol: 'O', };
     
         return [player1, player2];
     }
-    
-    
-    // asks for an input from the activePlayer until input is integer from 1 to 9 and then return that "input - 1"
-    function playerInput() {
-        let inputt;
-        while (true) {
-            inputt = Number(prompt(`${activePlayer.name} with symbol ${activePlayer.symbol} turn, enter index: `));
-    
-            if (isNaN(inputt) || inputt > 9 || inputt < 1) {
-                printError(1, inputt);
-                continue;
-            }
-            break;
-        }
-    
-        return inputt-1;
-    }
-    
-    
+
     // when called switches the current active player
     function switchActivePlayer() {
-        (activePlayer === player1) ? (activePlayer = player2) : (activePlayer = player1);
+        activePlayer = (activePlayer === player1) ? player2 : player1;
+        statusPrinter(3, activePlayer);
     };
-    
-    
-    // plays a single turn, then prints current board, then switches active player
-    function semiRound() {
-        let indexx;
-        
-        while(true) {
-            indexx = playerInput();
-        
-            if (board.checkAtIndex(indexx) === 'X' || board.checkAtIndex(indexx) === 'O') {
-                printError(2, indexx);
-                continue;
-            }
-            board.playTurn(indexx, activePlayer.symbol);
-            break;
-        }
-        board.printBoard();
-        switchActivePlayer();
-    }
-    
-    
-    // takes a player object and logs it as the winner
-    function announceWinner(winner) {
-        (winner === 'X') ? (winner = player1) : ((winner === 'O') ? (winner = player2) : (printError(143)));
-        console.log(`${winner.name} with symbol ${winner.symbol} wins !`);
+
+    function announceWinner(winner) {  // there is an error with this funtion, it is not calling statusPrinter
+        if (winner === 'X') statusPrinter(1, player1);
+        else if (winner === 'O') statusPrinter(1, player2);
+        else statusPrinter(10, winner);
     }
 
-    // return {switchActivePlayer, };
-}
-
-// GameController();
-
-(function DOMController() {
-    const start_btn = document.querySelector('.start');
-    start_btn.addEventListener('click', GameController);
 })();
