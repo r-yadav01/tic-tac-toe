@@ -36,21 +36,24 @@
   
 /* css below this line */
 
-@font-face {  /* used by default in body */
+/* used by default in body */
+@font-face {
   font-family: "Cartoonist Hand";
   src: url(./fonts/SF_Cartoonist_Hand_Bold-webfont.woff) format('woff');
   font-weight: 700;
   font-style: normal;
 }
 
-@font-face { /* used in current player status */
+/* used for showing game status, contact info */
+@font-face {
   font-family: "Cartoonist Hand";
   src: url(./fonts/SF_Cartoonist_Hand_Italic-webfont.woff) format('woff');
   font-weight: 400;
   font-style: italic;
 }
 
-@font-face {  /* used in the start button */
+/* used in the start button */
+@font-face {
   font-family: "Cartoonist Hand SC";
   src: url(./fonts/SF_Cartoonist_Hand_SC_Bold-webfont.woff) format('woff');
   font-weight: 700;
@@ -63,7 +66,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  font-family: "Cartoonist Hand", sans-serif;
+  font-family: "Cartoonist Hand", serif;
   font-weight: 700;
   font-style: normal;
   padding: 1rem;
