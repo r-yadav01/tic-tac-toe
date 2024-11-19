@@ -102,8 +102,8 @@ function GameBoard() {
         }
         else {
             e.target.textContent = activePlayer.symbol;
-            board.playTurn(dataBox, activePlayer.symbol);  // only one to alter the internal array
-            const result = board.checkWinner();  // check for win condition after every move
+            board.playTurn(dataBox, activePlayer.symbol);
+            const result = board.checkWinner();
 
             if (result === 'X' || result === 'O') {
                 announceWinner(result);
@@ -119,7 +119,8 @@ function GameBoard() {
         }
     }
 
-    function endGame() {  // removes click event listeners from all boxes
+    // removes click event listeners from all boxes
+    function endGame() {
         boxes.forEach(box => {
             box.removeEventListener('click', boxClickEvent);
         })
@@ -148,7 +149,7 @@ function GameBoard() {
         statusPrinter(3, activePlayer);
     };
 
-    function announceWinner(winner) {  // there is an error with this funtion, it is not calling statusPrinter
+    function announceWinner(winner) { 
         if (winner === 'X') statusPrinter(1, player1);
         else if (winner === 'O') statusPrinter(1, player2);
         else statusPrinter(10, winner);
