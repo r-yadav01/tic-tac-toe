@@ -36,26 +36,12 @@
   
 /* css below this line */
 
-/* @font-face {
-  font-family: "Cartoonist Hand";
-  src: url(./fonts/SF_Cartoonist_Hand-webfont.woff) format('woff');
-  font-weight: 400;
-  font-style: normal;
-} */
-
 @font-face {  /* used by default in body */
   font-family: "Cartoonist Hand";
   src: url(./fonts/SF_Cartoonist_Hand_Bold-webfont.woff) format('woff');
   font-weight: 700;
   font-style: normal;
 }
-
-/* @font-face {
-  font-family: "Cartoonist Hand";
-  src: url(./fonts/SF_Cartoonist_Hand_Bold_Italic-webfont.woff) format('woff');
-  font-weight: 700;
-  font-style: italic;
-} */
 
 @font-face { /* used in current player status */
   font-family: "Cartoonist Hand";
@@ -64,33 +50,12 @@
   font-style: italic;
 }
 
-/* @font-face {
-  font-family: "Cartoonist Hand SC";
-  src: url(./fonts/SF_Cartoonist_Hand_SC-webfont.woff) format('woff');
-  font-weight: 400;
-  font-style: normal;
-} */
-
 @font-face {  /* used in the start button */
   font-family: "Cartoonist Hand SC";
   src: url(./fonts/SF_Cartoonist_Hand_SC_Bold-webfont.woff) format('woff');
   font-weight: 700;
   font-style: normal;
 }
-
-/* @font-face {
-  font-family: "Cartoonist Hand SC";
-  src: url(./fonts/SF_Cartoonist_Hand_SC_Bold_Italic-webfont.woff) format('woff');
-  font-weight: 700;
-  font-style: italic;
-} */
-
-/* @font-face {
-  font-family: "Cartoonist Hand SC";
-  src: url(./fonts/SF_Cartoonist_Hand_SC_Italic-webfont.woff) format('woff');
-  font-weight: 400;
-  font-style: italic;
-} */
 
 body {
   height: 100vh;
@@ -139,4 +104,11 @@ button.start {
   height: 4rem;
   width: 10rem;
   font-size: 2rem;
+  margin: 0.5rem;
+}
+
+address {
+  font-weight: 400;
+  font-style: italic;
+  margin-top: 0.5rem;
 }

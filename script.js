@@ -1,4 +1,4 @@
-// prints different type of error messages based on the errorCode and hint given as arguments
+// prints different type of messages based on the code and hint given as arguments
 function statusPrinter(code, hint="Unknown") {
     let game_status = document.querySelector('.game_status');
 
